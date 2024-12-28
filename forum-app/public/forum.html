@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论坛 - 发布内容</title>
+    <!-- 引入 Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* 动态背景效果 */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: linear-gradient(-45deg, #ff6f61, #6a5acd, #3cb371, #ff6347);
+            background-size: 400% 400%;
+            animation: gradient 10s ease infinite;
+        }
+
+        /* 动画效果 */
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* 论坛内容容器 */
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            width: 100%;
+            max-width: 800px;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .form-label {
+            color: white;
+        }
+
+        .form-control {
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            width: 100%;
+        }
+
+        .post-list {
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="display-4">欢迎来到论坛</h2>
+        <h3>发布新帖子</h3>
+        <form id="postForm">
+            <div class="mb-3">
+                <label for="title" class="form-label">帖子标题:</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">帖子内容:</label>
+                <textarea class="form-control" id="content" name="content" rows="4" required></textarea>
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">发布</button>
+            </div>
+        </form>
+
+        <!-- 论坛帖子列表 -->
+        <div class="post-list">
+            <h4>当前帖子</h4>
+            <ul id="postList">
+                <!-- 动态插入帖子列表 -->
+            </ul>
+        </div>
+    </div>
+
+    <!-- 引入 Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    
+    <script>
+        // 模拟获取帖子列表（可以通过 API 获取真实的数据）
+        const posts = [
+            { title: "第一个帖子", content: "这是第一个帖子的内容。" },
+            { title: "第二个帖子", content: "这是第二个帖子的内容。" }
+        ];
+
+        // 渲染帖子列表
+        function renderPosts() {
+            const postList = document.getElementById('postList');
+            postList.innerHTML = ''; // 清空现有列表
+            posts.forEach(post => {
+                const li = document.createElement('li');
+                li.classList.add('list-group-item');
+                li.innerHTML = `<strong>${post.title}</strong><p>${post.content}</p>`;
+                postList.appendChild(li);
+            });
+        }
+
+        // 发布帖子逻辑
+        document.getElementById('postForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+
+            // 模拟将帖子提交到服务器并刷新页面
+            posts.push({ title, content });
+            renderPosts();
+
+            // 清空表单
+            document.getElementById('title').value = '';
+            document.getElementById('content').value = '';
+        });
+
+        // 初始化渲染帖子
+        renderPosts();
+    </script>
+</body>
+</html>
